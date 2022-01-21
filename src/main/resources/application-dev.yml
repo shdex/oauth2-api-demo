@@ -1,0 +1,11 @@
+client:
+  auth-server:
+    client-id: DEX-466834-000021
+    client-secret: 8282a0b2dc2244e8b047527895928972
+    user-authorization-uri: http://10.101.12.15:8392/dex-ums/oauth/authorize
+    access-token-uri: http://10.101.12.15:8392/dex-ums/oauth/token
+  resources:
+    get-uri: http://10.101.12.15:8093/daep/public/deliver/task    # 查询列表和交付详情资源接口
+    post-uri: http://10.101.12.15:8081/dex-open-api/public/deliver/task  # 提交交付信息反馈和凭证信息反馈接口
+    token-head: Authorization
+
