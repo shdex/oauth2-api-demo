@@ -3,6 +3,7 @@ package com.example.authdemo.client;
 import com.alibaba.fastjson.JSON;
 import com.example.authdemo.request.DeliverJobRequest;
 import com.example.authdemo.request.EvidenceReq;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class ResourceClient {
     @Value("${client.resources.get-uri}")
     private String getResourceUri;
@@ -29,7 +31,7 @@ public class ResourceClient {
     private String tokenHead;
 
     public String getTaskList(String token, int indexPage, int pageSize){
-            return doGet(getResourceUri + "?indexPage=" + indexPage + "&pageSize="+pageSize, token);
+            return doGet(getResourceUri + "?pageNum=" + indexPage + "&pageSize="+pageSize, token);
     }
 
     public String getTaskDetail(String taskId, String token){
@@ -52,6 +54,7 @@ public class ResourceClient {
 
 
     private String doPost(String url, String jsonParameter, String token){
+        log.info("POST请求："+url);
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url);
         httpPost.addHeader(tokenHead,token);
@@ -71,6 +74,7 @@ public class ResourceClient {
         return null;
     }
     private String doGet(String url, String token){
+        log.info("GET请求："+url);
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader(tokenHead,token);
